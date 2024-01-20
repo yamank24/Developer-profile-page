@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>flexbox</title>
+        <style>
+            .item{
+                width: 145px;
+                height: 145px;
+                /* border: 1px solid black; */
+                color: black;
+                background-color: rgb(245, 244, 244);
+                border-radius: 100px;
+                position: absolute;
+                /* top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                vertical-align: middle; */
+                /* margin: auto; */
+            }
+            .container{
+                /* width: 500px; */
+                height: 80vh;
+                border: 2px solid black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .outer{
+                width: 150px;
+                height: 150px;
+                border: 2px solid  rgb(245, 244, 244);
+;
+                color: black;
+                background-color: white;
+                border-radius: 100px;
+                /* position: relative; */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .placeholder-image {
+                z-index: 1;
+                color: rgba(207, 205, 205, 0.692);
+                font-weight: bold;
+ ;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="outer">
+                <div class="item"></div>
+                <span class="placeholder-image">image</span>
+            </div>
+        </div>
+        
+    </body>
+</html>
