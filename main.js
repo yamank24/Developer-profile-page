@@ -1,12 +1,10 @@
-const getProfileDetails = () => {};
-const currentPage = 1;
-const currentPageLimit = 10;
-let username = "";
-import { Octokit, App } from "https://esm.sh/octokit";
-const octokit = new Octokit({
-  auth: "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",
-});
+import { Octokit } from "https://esm.sh/octokit";
+let totalItems = 10;
+let currentPage = 1;
+let itemsPerPage = 10;
+let totalPages = 1;
 
+let username = "";
 function getProjectCard(cardObj) {
   var boxDiv = document.createElement("div");
   boxDiv.className = "box";
@@ -64,6 +62,9 @@ function getUrlParams() {
 
 async function getUserInfo() {
   try {
+    const octokit = new Octokit({
+      auth: "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",
+    });
     const { data } = await octokit.request("GET /users/" + username, {
       username,
       headers: {
@@ -77,12 +78,15 @@ async function getUserInfo() {
 }
 
 async function getUserRepos() {
+  const octokit = new Octokit({
+    auth: "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",
+  });
   try {
     const { data: repos } = await octokit.request(
       "GET /users/" + username + "/repos",
       {
-        per_page: 10,
-        page: 1,
+        per_page: itemsPerPage,
+        page: currentPage,
         sort: "pushed",
         headers: {
           "X-GitHub-Api-Version": "2022-11-28",
@@ -95,16 +99,22 @@ async function getUserRepos() {
   }
 }
 
-export const onloadListener = async (e) => {
-  const queryParams = getUrlParams();
-  if (!queryParams.user) {
-    alert("Invalid Url");
-    return;
-  }
+// Function to change items per page
+export function changeItemsPerPage() {
+  itemsPerPage = parseInt(document.getElementById("itemsPerPage").value, 10);
+  currentPage = 1;
+  totalPages = Math.ceil(totalItems / itemsPerPage);
+  displayItems();
+  generatePaginationLinks();
+  updatePaginationUI();
+}
 
-  username = queryParams.user;
+const displayInfo = async () => {
   const userDetails = await getUserInfo();
-  const userRepos = await getUserRepos();
+  totalItems = userDetails.public_repos;
+  totalPages = Math.ceil(totalItems / itemsPerPage);
+  generatePaginationLinks();
+
   document.getElementById("userNameElement").innerHTML = userDetails.name;
   // document.getElementById("").innerHTML = userDetails.html_url;
   document.getElementById("avatar").src = userDetails.avatar_url;
@@ -112,7 +122,14 @@ export const onloadListener = async (e) => {
   document.getElementById("userLocation").innerHTML = userDetails.location;
   document.getElementById("userProfileLink").href = userDetails.html_url;
   document.getElementById("userProfileLink").textContent = userDetails.html_url;
-  console.log(userRepos);
+  console.log(userDetails);
+};
+
+const displayItems = async () => {
+  const userRepos = await getUserRepos();
+
+  // setting total pages
+  document.getElementById("projects-wrapper").innerHTML = "";
   userRepos.forEach((repo) => {
     const elementObj = {
       id: repo.id,
@@ -123,4 +140,86 @@ export const onloadListener = async (e) => {
     };
     addNewProject(elementObj);
   });
+};
+
+function generatePaginationLinks() {
+  const paginationContainer = document.getElementById("pagination");
+  paginationContainer.innerHTML = "";
+
+  // Add "Previous" button
+  const prevButton = document.createElement("li");
+  prevButton.textContent = "Previous";
+  prevButton.addEventListener("click", () => goToPage(currentPage - 1));
+  paginationContainer.appendChild(prevButton);
+
+  // Add numbered pages
+  const numPagesToShow = Math.min(totalPages, 5);
+  let startPage = 1;
+  // debugger;
+  let endPage = startPage + 4;
+  if (currentPage > 3) {
+    startPage = currentPage - 2;
+    endPage = startPage + 4;
+  }
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = endPage - 4;
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
+    const li = document.createElement("li");
+    li.textContent = i;
+    li.addEventListener("click", () => goToPage(i));
+    if (i === currentPage) {
+      li.classList.add("active");
+    }
+    paginationContainer.appendChild(li);
+  }
+
+  // Add "Next" button
+  const nextButton = document.createElement("li");
+  nextButton.textContent = "Next";
+  nextButton.addEventListener("click", () => goToPage(currentPage + 1));
+  paginationContainer.appendChild(nextButton);
+}
+
+// Function to handle page navigation
+function goToPage(page) {
+  // debugger;
+  if (page >= 1 && page <= totalPages) {
+    currentPage = page;
+    displayItems();
+    generatePaginationLinks();
+    updatePaginationUI();
+  }
+}
+
+// Function to update the appearance of the pagination links
+function updatePaginationUI() {
+  const paginationLinks = document.getElementById("pagination").children;
+
+  for (let i = 1; i < paginationLinks.length; i++) {
+    paginationLinks[i].classList.remove("active");
+    if (currentPage >= 3 && currentPage <= totalPages - 2) {
+      paginationLinks[3].classList.add("active");
+    } else if (currentPage <= 5 && i === currentPage) {
+      paginationLinks[i].classList.add("active");
+    } else if (currentPage === totalPages) {
+      paginationLinks[5].classList.add("active");
+    } else if (currentPage === totalPages - 1) {
+      paginationLinks[4].classList.add("active");
+    }
+  }
+}
+
+export const onloadListener = (e) => {
+  const queryParams = getUrlParams();
+  if (!queryParams.user) {
+    alert("Invalid Url");
+    return;
+  }
+
+  username = queryParams.user;
+  displayInfo();
+  displayItems();
 };

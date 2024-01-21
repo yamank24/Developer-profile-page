@@ -6,7 +6,7 @@
   <link href="main.css" rel='stylesheet' type="text/css" />
   <meta charset="UTF-8">
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -36,74 +36,27 @@
     </div>
     <div class="row row2">
       <a id="userProfileLink" href="https://github.com/yamak24" target="_blank">https://github.com/yamak24</a>
+      <div id="itemsPerPageDropdown">
+        <label for="itemsPerPage">Items per page: </label>
+        <select id="itemsPerPage" >
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
     </div>
+
     <div class="row" id="projects-wrapper"></div>
-    <!-- <div class="row row3">
-      <div class="box">
-        <p class="title">Heroes</p>
-        <p>Heroes description goes here</p>
-        <button>Javascript</button>
-        <button>angular</button>
-        <button>angularjs</button>
-        <button>angular 2+</button>
-      </div>
 
-      <div class="box">
-        <p>Heroes</p>
-        <p>Heroes description goes here</p>
-        <button>Javascript</button>
-        <button>angular</button>
-        <button>angularjs</button>
-        <button>angular 2+</button>
-      </div>
-    </div>
-
-    <div class="row row3">
-    <div class="box">
-      <p class="title">Heroes</p>
-      <p>Heroes description goes here</p>
-      <button>Javascript</button>
-      <button>angular</button>
-      <button>angularjs</button>
-      <button>angular 2+</button>
-    </div>
-
-    <div class="box">
-      <p class="title">Heroes</p>
-      <p>Heroes description goes here</p>
-      <button>Javascript</button>
-      <button>angular</button>
-      <button>angularjs</button>
-      <button>angular 2+</button>
-    </div>
+    <ul class="pagination" id="pagination"></ul>
   </div>
-
-  <div class="row row3">
-    <div class="box">
-      <p class="title">Heroes</p>
-      <p>Heroes description goes here</p>
-      <button>Javascript</button>
-      <button>angular</button>
-      <button>angularjs</button>
-      <button>angular 2+</button>
-    </div>
-
-    <div class="box">
-      <p class="title">Heroes</p>
-      <p>Heroes description goes here</p>
-      <button>Javascript</button>
-      <button>angular</button>
-      <button>angularjs</button>
-      <button>angular 2+</button>
-    </div>
-  </div> -->
-  </div>
-  <button id="locationBtn">Click me to get geographical data</button>
 
   <script type="module">
-    import { onBtnClick, addNewProject, fetchData, onloadListener } from './main.js';
+    import { changeItemsPerPage, onloadListener } from './main.js';
 
     window.addEventListener('load', onloadListener);
+    document.getElementById('itemsPerPage').addEventListener('change', changeItemsPerPage);
   </script>
 
 </body>

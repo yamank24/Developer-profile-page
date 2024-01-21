@@ -63,6 +63,16 @@
     /* margin: 2% 4%; */
 }
 
+.row2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row2 a, .row2 a:visited {
+    text-decoration: none;
+    color: #428bca;
+}
+
 .intro-container {
     margin-left: 2vw;
     text-align: left;
@@ -130,4 +140,28 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+
+  .pagination {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+  }
+
+  .pagination li {
+    margin-right: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: #428bca;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .pagination .active {
+    font-weight: bold;
+    background-color: #5bc0de; /* Change active page color if needed */
+  }
+
+  #itemsPerPageDropdown {
+    margin-bottom: 10px;
   }
