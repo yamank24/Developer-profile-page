@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 .wrapper {
@@ -18,7 +19,6 @@
 .name {
     font-size: 18px;
     font-weight: bold;
-    font-family: Arial;
 }
 
 .title {
@@ -81,3 +81,53 @@
     vertical-align: middle;
     width: 45%;
 }
+
+/* Style for the box */
+.box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px 0px;
+    width: 43%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+  }
+
+  /* Style for the heading */
+  .box h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  /* Style for the subheading */
+  .box h2 {
+    font-size: 18px;
+    color: #888;
+    margin-bottom: 15px;
+  }
+
+  /* Style for the horizontal list */
+  .box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+  }
+
+  /* Style for the list items (chips) */
+  .box li {
+    background-color: #428bca;
+    color: white;
+    border: 1px solid #357ebd;
+    padding: 8px;
+    margin: 2px;
+    border-radius: 4px;
+  }
+
+  #projects-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }

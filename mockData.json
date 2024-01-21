@@ -1,0 +1,37 @@
+{
+  "page": 1,
+  "limit": 10,
+  "totalPages": 555,
+  "data": [
+    {
+      "id": "001",
+      "heading": "Heading 1",
+      "subHeading": "Sub Heading 1",
+      "technologies": ["javascript", "react", "html", "css"]
+    },
+    {
+      "id": "002",
+      "heading": "Heading 2",
+      "subHeading": "Sub Heading 2",
+      "technologies": ["javascript", "react", "html", "css"]
+    },
+    {
+      "id": "003",
+      "heading": "Heading 3",
+      "subHeading": "Sub Heading 3",
+      "technologies": ["javascript", "react", "html", "css"]
+    },
+    {
+      "id": "004",
+      "heading": "Heading 4",
+      "subHeading": "Sub Heading 4",
+      "technologies": ["javascript", "react", "html", "css"]
+    },
+    {
+      "id": "005",
+      "heading": "Heading 5",
+      "subHeading": "Sub Heading 5",
+      "technologies": ["javascript", "react", "html", "css"]
+    }
+  ]
+}
