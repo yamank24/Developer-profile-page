@@ -4,25 +4,8 @@ const currentPageLimit = 10;
 let username = "";
 import { Octokit, App } from "https://esm.sh/octokit";
 const octokit = new Octokit({
-  auth: "XXX",
+  auth: "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",
 });
-export const getGeographicalLocation = () => {
-  const url = "https://get.geojs.io/v1/ip/country.json";
-  return fetch(url, {
-    method: "GET",
-  });
-};
-
-export const onBtnClick = (e) => {
-  const apiRes = getGeographicalLocation();
-  apiRes
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-      alert("Hello from " + res.name);
-    })
-    .catch((e) => console.error(e));
-};
 
 function getProjectCard(cardObj) {
   var boxDiv = document.createElement("div");
@@ -63,35 +46,6 @@ export const addNewProject = (cardObj) => {
   const projectCard = getProjectCard(cardObj);
   projectsWrapper.appendChild(projectCard);
 };
-
-export function fetchData() {
-  // Path to the local file (adjust the path based on your file structure)
-  const filePath = "mockData.json";
-
-  // Use the Fetch API to get the data
-  fetch(filePath)
-    .then((response) => {
-      // Check if the response is successful (status code in the range 200-299)
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-
-      // Parse the response as JSON
-      return response.json();
-    })
-    .then((res) => {
-      const data = res.data;
-      // Handle the data
-      console.log("Data from local file:", data);
-      data.forEach((element) => {
-        addNewProject(element);
-      });
-    })
-    .catch((error) => {
-      // Handle errors
-      console.error("Fetch error:", error);
-    });
-}
 
 function getUrlParams() {
   // Get the URL search parameters
